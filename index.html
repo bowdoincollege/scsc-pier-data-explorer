@@ -19,7 +19,7 @@ permissions and limitations under the License.
 <html lang="en">
 
 <head>
-    <title>AWS S3 Explorer</title>
+    <title>SCSC Pier Data</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://aws.amazon.com/favicon.ico">
@@ -27,7 +27,16 @@ permissions and limitations under the License.
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css" integrity="sha384-jzngWsPS6op3fgRCDTESqrEJwRKck+CILhJVO5VvaAZCq8JYf8HsR/HPpBOOPZfR" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-    <style type="text/css">
+	<style type="text/css">
+		.panel-primary {
+			border-color: black;
+		}
+
+		.panel-primary .panel-heading {
+			background-color: black;
+			background-image: unset !important;
+		}
+
         #wrapper {
             padding-left: 0;
         }
@@ -41,9 +50,9 @@ permissions and limitations under the License.
             width: 100% !Important;
         }
 
-        a {
+        /* a {
             color: #00B7FF;
-        }
+        } */
 
         body {
             font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -75,14 +84,13 @@ permissions and limitations under the License.
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-primary">
-
                     <!-- Panel including title, breadcrumbs, and controls -->
-                    <div class="panel-heading clearfix">
+                    <div class="panel-heading clearfix bg-dark">
                         <!-- Title and breadcrumbs -->
                         <div class="btn-group pull-left">
                             <!-- App title -->
                             <div class="title pull-left">
-                                AWS S3 Explorer&nbsp;
+                                SCSC Pier Data&nbsp;
                             </div>
                             <!-- Bucket breadcrumbs -->
                             <div class="pull-right">
@@ -96,6 +104,7 @@ permissions and limitations under the License.
                         <!-- Controls -->
                         <div id="navbuttons" class="pull-right">
                             <div>
+								<div style="display: none;">
                                 <!-- Hide folders checkbox -->
                                 <div class="btn-group">
                                     <label class="btn">
@@ -116,7 +125,8 @@ permissions and limitations under the License.
                                 <!-- Bucket selection -->
                                 <div class="btn-group" id="bucket">
                                     <i id="bucket-chooser" style="cursor: pointer;" class="btn fa fa-cog fa-2x" title="Switch to a different S3 Bucket"></i>
-                                </div>
+								</div>
+								</div>
                                 <!-- Dual purpose: progress spinner and refresh button, plus object count -->
                                 <div class="btn-group" id="refresh">
                                     <span id="bucket-loader" style="cursor: pointer;" class="btn fa fa-refresh fa-2x pull-left" title="Refresh"></span>
@@ -125,6 +135,11 @@ permissions and limitations under the License.
                             </div>
                         </div>
                     </div>
+
+					<div class="panel-body">
+						<p>These data were collected at the <a href="https://www.bowdoin.edu/coastal-studies-center/index.html">Schiller Costal
+						Studies Center</a> of <a href="https://bowdoin.edu">Bowdoin College</a>. They can be used ...</p>
+					</div>
 
                     <!-- Panel including S3 object table -->
                     <div class="panel-body">
@@ -161,8 +176,8 @@ permissions and limitations under the License.
     var HIDE_INDEX = true;
     var s3exp_config = {
         Region: '',
-        Bucket: '',
-        Prefix: '',
+        Bucket: 'scsc-pier-data',
+        Prefix: 'scsc_pier/',
         Delimiter: '/'
     };
     var s3exp_lister = null;
@@ -538,6 +553,7 @@ permissions and limitations under the License.
         $('#tb-s3objects').DataTable({
             iDisplayLength: 50,
             order: [
+				[3, 'desc'],
                 [1, 'asc'],
                 [0, 'asc']
             ],
