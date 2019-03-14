@@ -137,8 +137,7 @@ permissions and limitations under the License.
                     </div>
 
 					<div class="panel-body">
-						<p>These data were collected at the <a href="https://www.bowdoin.edu/coastal-studies-center/index.html">Schiller Costal
-						Studies Center</a> of <a href="https://bowdoin.edu">Bowdoin College</a>. They can be used ...</p>
+						<p>These physical and biological seawater data are collected by an environmental monitoring system funded by the <a href="http://nsf.gov">National Science Foundation</a> and operating at the <a href="https://www.bowdoin.edu/coastal-studies-center/">Schiller Coastal Studies Center</a>,	Harpswell, Maine, USA (43.7886445, -69.9598874). They are available for public use, and owned by <a href="https://bowdoin.edu">Bowdoin College</a>.
 					</div>
 
                     <!-- Panel including S3 object table -->
@@ -177,7 +176,7 @@ permissions and limitations under the License.
     var s3exp_config = {
         Region: '',
         Bucket: 'scsc-pier-data',
-        Prefix: '',
+        Prefix: 'Data/',
         Delimiter: '/'
     };
     var s3exp_lister = null;
@@ -551,7 +550,7 @@ permissions and limitations under the License.
 
         // Initial DataTable settings
         $('#tb-s3objects').DataTable({
-            iDisplayLength: 50,
+            iDisplayLength: 100,
             order: [
 				[3, 'desc'],
                 [1, 'asc'],
